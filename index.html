@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💌 My Heart Speaks 💖</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      animation: bgPulse 12s ease-in-out infinite;
+    }
+
+    @keyframes bgPulse {
+      0%, 100% { background: linear-gradient(135deg, #ffdde1, #ee9ca7); }
+      50% { background: linear-gradient(135deg, #fbc2eb, #a6c1ee); }
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(255, 230, 235, 0.85);
+      max-width: 500px;
+      width: 90%;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 2s ease forwards;
+      z-index: 10;
+      position: relative;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    h1 {
+      color: #e75480;
+      font-size: clamp(1.8em, 5vw, 2.8em);
+      text-shadow: 0 0 10px #ff99aa, 0 0 20px #ffccd5;
+      animation: glow 2s ease-in-out infinite alternate;
+      margin-bottom: 25px;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff99aa, 0 0 20px #ffccd5; }
+      to { text-shadow: 0 0 20px #ff4d6d, 0 0 30px #ff99aa; }
+    }
+
+    .message {
+      margin-top: 0;
+      font-size: clamp(1em, 3.5vw, 1.05em);
+      color: #444;
+      line-height: 1.7;
+      text-align: left;
+      white-space: pre-wrap;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Transparent floating hearts inside message box */
+    .inner-heart {
+      position: absolute;
+      font-size: 1.3em;
+      opacity: 0.3; /* Transparent for better text visibility */
+      animation: floatInside 6s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+      filter: blur(0.5px) drop-shadow(0 0 5px rgba(255,182,193,0.3));
+    }
+
+    @keyframes floatInside {
+      0% { transform: translateY(0) scale(0.9); opacity: 0; }
+      20% { opacity: 0.4; }
+      50% { transform: translateY(-15px) scale(1); opacity: 0.5; }
+      100% { transform: translateY(0) scale(0.9); opacity: 0; }
+    }
+
+    /* Typewriter effect (unchanged) */
+    .char {
+      opacity: 0;
+      transition: opacity 0.05s ease-in;
+      z-index: 2;
+      position: relative;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Background floating hearts */
+    .heart {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: pink;
+      transform: rotate(45deg);
+      animation: floatUp linear infinite;
+      box-shadow: 0 0 10px rgba(255,182,193,0.7);
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -9px; left: 0; }
+    .heart::after { left: -9px; top: 0; }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(45deg); opacity: 0; }
+      30% { opacity: 0.6; }
+      100% { transform: translateY(-120vh) rotate(45deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💖My Heart Speaks💖</h1>
+    <div class="message" id="message-box">
+      <span id="animated-text">
+        🌸 I’ve been holding something in for a while now… and I can’t keep it inside anymore.  
+        The truth is, I have feelings for you 💕.  
+        You’re someone truly special — you make my heart race and my soul smile every time I see you. 🌹  
+        I just wanted you to know… maybe we can see where this beautiful feeling takes us together.  
+        No rush, my dear — I’m just happy I shared this with you. 💌
+      </span>
+    </div>
+  </div>
+
+  <script>
+    // Floating hearts in background
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+    setInterval(createHeart, 400);
+
+    // Typewriter animation (unchanged)
+    document.addEventListener('DOMContentLoaded', () => {
+      const targetElement = document.getElementById('animated-text');
+      if (!targetElement) return;
+      const text = targetElement.textContent;
+      targetElement.innerHTML = '';
+      text.split('').forEach((char, index) => {
+        const span = document.createElement('span');
+        span.classList.add('char');
+        span.textContent = char;
+        span.style.transitionDelay = `${(index * 0.05) + 1}s`;
+        targetElement.appendChild(span);
+      });
+      setTimeout(() => {
+        document.querySelectorAll('.char').forEach(s => s.style.opacity = 1);
+      }, 100);
+    });
+
+    // Transparent floating hearts inside message box
+    const colors = ['#ff7f9e', '#ffb6c1', '#ff4d6d', '#ff99cc', '#f7a8b8', '#ffcce0', '#ff8fab', '#e75480', '#ff6f91'];
+    function createInnerHeart() {
+      const msgBox = document.getElementById('message-box');
+      const heart = document.createElement('div');
+      heart.classList.add('inner-heart');
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 90 + '%';
+      heart.style.top = Math.random() * 90 + '%';
+      heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+      heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+      msgBox.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+    setInterval(createInnerHeart, 500);
+  </script>
+</body>
+</html>
